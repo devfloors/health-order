@@ -29,32 +29,32 @@ module "eks" {
   # }
   
   eks_managed_node_groups = {
-    monitoring = {
+    user = {
       min_size     = 1
       max_size     = 10
       desired_size = 1
 
-      instance_types = ["t3.medium"]
+      instance_types = ["t3.large"]
       capacity_type  = "SPOT"
 
       labels = {
-        node = "monitoring"
+        node = "user"
       }
     }
 
-    msa = {
-      min_size = 1
-      max_size = 10
-      desired_size = 1
+    # msa = {
+    #   min_size = 1
+    #   max_size = 10
+    #   desired_size = 1
 
-      instance_types = ["t3.large"]
-      capacity_type = "SPOT"
+    #   instance_types = ["t3.large"]
+    #   capacity_type = "SPOT"
 
-      labels = {
-        node = "msa"
-        istio-injection = "enabled"
-      }
-    }
+    #   labels = {
+    #     node = "msa"
+    #     istio-injection = "enabled"
+    #   }
+    # }
   }
 
  node_security_group_additional_rules = {
