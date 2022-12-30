@@ -52,3 +52,6 @@ public/uploads
 # env
 .env
 log/**
+
+# addons
+istio-*/
