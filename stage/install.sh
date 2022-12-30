@@ -11,16 +11,17 @@ kubectl wait \
 kubectl apply -f manifests/
  
 # istio 설치 /stage/eks/addons/istio-1.16.1
-export PATH="$PATH:/Users/kmov/Documents/tf-k8s-boilerplate/stage/eks/addons/istio-1.16.1/bin"
+curl -L https://istio.io/downloadIstio | sh -
+export PATH="$PATH:/Users/kmov/Documents/devfloors/health-order/stage/eks/addons/istio-1.16.1/bin"
 istioctl operator init
 kubectl apply -f istio-demo.yaml
 
 kubectl apply -f samples/addons/kiali.yaml 
 kubectl apply -f samples/addons/jaeger.yaml 
 
-kubectl create ns msa
-kubectl label ns msa istio-injection=enabled
-kubectl get ns msa --show-labels
+kubectl create ns user
+kubectl label ns user istio-injection=enabled
+kubectl get ns user --show-labels
 
 kubectl apply -f prometheus-rbac.yaml
 kubectl apply -f prometheus-operator.yaml
@@ -42,7 +43,7 @@ kubectl edit cm -n istio-system kiali
 
 # kiali pod 재실행
 
-kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -n msa
+kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -n user
 
 # lb controller /stage/eks/lb-controller
 terraform apply
@@ -51,7 +52,7 @@ kubectl edit svc istio-ingressgateway -n istio-system
 # annotaion에  service.beta.kubernetes.io/aws-load-balancer-type: "nlb" 추가
 
 # ingress gateway 실행 /stage/eks/addons/istio-1.16.1
-kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml -n msa
+kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml -n user
 
 # argo install /stage/mgmt/argo
 
