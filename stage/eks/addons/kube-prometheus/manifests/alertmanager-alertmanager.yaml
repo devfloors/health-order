@@ -13,6 +13,7 @@ spec:
   image: quay.io/prometheus/alertmanager:v0.24.0
   nodeSelector:
     kubernetes.io/os: linux
+    service: monitoring
   podMetadata:
     labels:
       app.kubernetes.io/component: alert-router
