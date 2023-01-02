@@ -38,23 +38,30 @@ module "eks" {
       capacity_type  = "SPOT"
 
       labels = {
-        node = "user"
+        service = "user"
       }
     }
 
-    # msa = {
-    #   min_size = 1
-    #   max_size = 10
-    #   desired_size = 1
+    monitoring = {
+      min_size     = 1
+      max_size     = 10
+      desired_size = 1
 
-    #   instance_types = ["t3.large"]
-    #   capacity_type = "SPOT"
+      instance_types = ["t3.medium"]
+      capacity_type  = "SPOT"
 
-    #   labels = {
-    #     node = "msa"
-    #     istio-injection = "enabled"
-    #   }
-    # }
+      # taints = [
+      #   {
+      #     key = "service",
+      #     value = "monitoring",
+      #     effect = "NO_SCHEDULE" 
+      #   }
+      # ]
+
+      labels = {
+        service = "monitoring"
+      }
+    }
   }
 
  node_security_group_additional_rules = {
