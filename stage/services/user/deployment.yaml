@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice
+  namespace: user
+spec:
+  selector:
+    matchLabels:
+      app: userservice
+  template:
+    metadata:
+      labels:
+        app: userservice
+    spec:
+      nodeSelector:
+        node: user
+      containers:
+      - name: server
+        image: devfloors/user-spring-boot:0.1
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+      - name: mariadb
+        image: mariadb:10.8.2
+        ports:
+        - containerPort: 3306
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userservice
+  namespace: user
+spec:
+  type: ClusterIP
+  selector:
+    app: userservice
+  ports:
+  - name: http
+    port: 5000
+    targetPort: 8080
+      
