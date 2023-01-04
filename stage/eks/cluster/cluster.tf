@@ -29,7 +29,7 @@ module "eks" {
   # }
   
   eks_managed_node_groups = {
-    user = {
+    one = {
       min_size     = 1
       max_size     = 10
       desired_size = 1
@@ -37,12 +37,12 @@ module "eks" {
       instance_types = ["t3.large"]
       capacity_type  = "SPOT"
 
-      labels = {
-        service = "user"
-      }
+      # labels = {
+      #   service = "user"
+      # }
     }
 
-    monitoring = {
+    two = {
       min_size     = 1
       max_size     = 10
       desired_size = 1
@@ -58,9 +58,9 @@ module "eks" {
       #   }
       # ]
 
-      labels = {
-        service = "monitoring"
-      }
+      # labels = {
+      #   service = "monitoring"
+      # }
     }
   }
 

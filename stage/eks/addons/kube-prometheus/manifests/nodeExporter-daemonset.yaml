@@ -98,7 +98,6 @@ spec:
       hostPID: true
       nodeSelector:
         kubernetes.io/os: linux
-        service: monitoring
       priorityClassName: system-cluster-critical
       securityContext:
         runAsNonRoot: true
