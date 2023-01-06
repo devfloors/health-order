@@ -14,7 +14,7 @@ kubectl apply -f manifests/
 curl -L https://istio.io/downloadIstio | sh -
 export PATH="$PATH:/Users/kmov/Documents/devfloors/health-order/stage/eks/addons/istio-1.16.1/bin"
 istioctl operator init
-kubectl apply -f istio-demo.yaml
+kubectl apply -f default.yaml
 
 kubectl apply -f samples/addons/kiali.yaml 
 kubectl apply -f samples/addons/jaeger.yaml 
